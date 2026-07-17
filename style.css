@@ -1089,21 +1089,13 @@ textarea{
     0 2px 5px rgba(0,0,0,.08);
 
 }
-/* تثبيت خط أسماء العريس والعروسة في صفحة الآباء */
-
-.parents-box + .couple-names,
-.couple-names{
-
-    font-family:"Aref Ruqaa" !important;
-    color:#b88a2c;
-
-}@media(max-width:480px){
+/* تثبيت خط أسماء العريس والعروسة */
 
 .couple-names{
 
     font-family:"Aref Ruqaa" !important;
-    font-size:66px !important;
     color:#b88a2c;
+    font-size:75px;
     line-height:1.2;
 
 }
@@ -1112,8 +1104,46 @@ textarea{
 .couple-names span{
 
     font-family:"Aref Ruqaa" !important;
-    font-size:42px !important;
+    font-size:42px;
+    display:block;
 
+}
+
+
+@media(max-width:480px){
+
+.couple-names{
+
+    font-family:"Aref Ruqaa" !important;
+    font-size:62px !important;
+    line-height:1.2;
+
+}
+
+
+.couple-names span{
+
+    font-size:38px !important;
+
+}
+
+}
+@media(max-width:480px){
+
+.parents-box{
+    gap:5px;
+}
+
+.parent h4{
+    font-size:15px;
+}
+
+.couple-names{
+    font-size:58px !important;
+}
+
+.couple-names span{
+    font-size:36px !important;
 }
 
 }
