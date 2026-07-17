@@ -100,61 +100,6 @@ cards.forEach(card=>observer.observe(card));
 // سقوط الثلج ❄️
 //====================================
 
-
-const flowers=document.getElementById("flowers");
-
-
-
-function startFlowers(){
-
-
-setInterval(createSnow,350);
-
-
-}
-
-
-
-function createSnow(){
-
-
-const snow=document.createElement("div");
-
-
-snow.className="flower";
-
-
-snow.innerHTML="❄";
-
-
-snow.style.left=Math.random()*100+"vw";
-
-
-snow.style.fontSize=(15+Math.random()*22)+"px";
-
-
-snow.style.animationDuration=(6+Math.random()*5)+"s";
-
-
-
-flowers.appendChild(snow);
-
-
-
-setTimeout(()=>{
-
-
-snow.remove();
-
-
-},12000);
-
-
-}
-
-
-
-
 //====================================
 // Auto Scroll
 //====================================
