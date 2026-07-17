@@ -371,25 +371,6 @@ main{
 
 }
 
-/*==================================
-        Card Animation
-==================================*/
-
-
-.card{
-
-    transition:.5s;
-
-}
-
-
-.card:hover{
-
-    transform:translateY(-5px);
-
-    box-shadow:0 20px 45px rgba(0,0,0,.18);
-
-}
 
 
 /*==================================
