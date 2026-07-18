@@ -371,6 +371,25 @@ main{
 
 }
 
+/*==================================
+        Card Animation
+==================================*/
+
+
+.card{
+
+    transition:.5s;
+
+}
+
+
+.card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 20px 45px rgba(0,0,0,.18);
+
+}
 
 
 /*==================================
@@ -953,7 +972,47 @@ textarea{
 
 /*==================================
         ظهور الكروت
+==================================*/
 
+
+.card{
+
+    opacity:0;
+
+    transform:translateY(50px);
+
+    transition:all .8s ease;
+
+}
+
+
+.card.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+.quran-ayah{
+
+    font-family:"Amiri";
+
+    font-size:32px;
+
+    line-height:2;
+
+    color:#8b5e34;
+
+    margin:25px auto;
+
+    max-width:330px;
+
+    text-align:center;
+
+    text-shadow:
+    0 2px 5px rgba(0,0,0,.08);
+
+}
 /* نفس خط أول صفحة لأسماء العريس والعروسة */
 
 .couple-names{

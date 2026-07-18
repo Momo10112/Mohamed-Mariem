@@ -53,6 +53,21 @@ openBtn.addEventListener("click", () => {
 });
 
 
+//====================================
+// ظهور الكروت
+//====================================
+
+function showCards() {
+
+    cards.forEach((card, index) => {
+
+        setTimeout(() => {
+            card.classList.add("show");
+        }, index * 250); // ظهور الكروت بالتتابع
+
+    });
+
+}
 
 
 //====================================
