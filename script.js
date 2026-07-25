@@ -339,7 +339,7 @@ box.innerHTML=`
 
 messages.appendChild(box);
 
-
+messages.scrollTop = 0;
 
 });
 

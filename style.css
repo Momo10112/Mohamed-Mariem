@@ -1111,7 +1111,6 @@ textarea{
 
     }
 
-}
 /* يتشرفان بدعوة سيادتكم */
 
 .invite-message{
@@ -1148,26 +1147,56 @@ textarea{
     line-height:1.8;
     color:#5d4630;
 }
-/* حاوية رسائل الزوار */
-#messagesContainer{
-    width:100%;
-    max-height:350px;   /* ارتفاع الكارت */
-    overflow-y:auto;    /* اسكرول رأسي */
-    overflow-x:hidden;
-    margin-top:20px;
-    padding-right:5px;
+/*=============================
+      صندوق الرسائل
+=============================*/
+
+#messages{
+    margin-top:25px;
+    height:420px;              /* ارتفاع ثابت */
+    overflow-y:auto;           /* اسكرول رأسي */
+    padding:10px;
+    border-radius:18px;
+    background:rgba(255,255,255,.35);
+    border:1px solid rgba(184,138,44,.2);
 }
 
 /* شكل الاسكرول */
-#messagesContainer::-webkit-scrollbar{
+
+#messages::-webkit-scrollbar{
     width:6px;
 }
 
-#messagesContainer::-webkit-scrollbar-thumb{
+#messages::-webkit-scrollbar-thumb{
     background:#b88a2c;
-    border-radius:10px;
+    border-radius:20px;
 }
 
-#messagesContainer::-webkit-scrollbar-track{
-    background:rgba(255,255,255,.3);
+#messages::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+/* كارت كل رسالة */
+
+.message-box{
+    background:#fff;
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    text-align:right;
+}
+
+.message-box strong{
+    display:block;
+    color:#b88a2c;
+    margin-bottom:10px;
+    font-size:18px;
+}
+
+.message-box p{
+    margin:0;
+    line-height:1.8;
+    color:#5d4630;
+    word-break:break-word;
 }
