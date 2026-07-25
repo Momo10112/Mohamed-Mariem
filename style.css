@@ -1200,3 +1200,8 @@ textarea{
     color:#5d4630;
     word-break:break-word;
 }
+            #messages{
+    height:300px;
+    overflow-y:auto;
+    border:2px solid red;
+}
