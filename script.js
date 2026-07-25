@@ -9,9 +9,12 @@ import {
     addDoc,
     onSnapshot,
     query,
-    orderBy
-} from 
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    orderBy,
+    updateDoc,
+    doc,
+    increment
+}
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
 //====================================
@@ -59,17 +62,14 @@ openBtn.addEventListener("click", () => {
 
 function showCards() {
 
-    // أول كارت
     setTimeout(() => {
         cards[0].classList.add("show");
     }, 200);
 
-    // ثاني كارت
     setTimeout(() => {
         cards[1].classList.add("show");
     }, 700);
 
-    // باقي الكروت مع الاسكرول
     const observer = new IntersectionObserver((entries) => {
 
         entries.forEach((entry) => {
@@ -118,249 +118,215 @@ function startAutoScroll() {
 window.addEventListener("touchstart", () => clearInterval(autoScroll));
 window.addEventListener("wheel", () => clearInterval(autoScroll));
 window.addEventListener("keydown", () => clearInterval(autoScroll));
+
+
 //====================================
 // Countdown
 //====================================
-
 
 const weddingDate = new Date(
 "2026-08-07T19:00:00"
 ).getTime();
 
+const days = document.getElementById("days");
+const hours = document.getElementById("hours");
+const minutes = document.getElementById("minutes");
+const seconds = document.getElementById("seconds");
 
+function updateCountdown() {
 
-const days=document.getElementById("days");
+    const now = new Date().getTime();
 
-const hours=document.getElementById("hours");
+    const distance = weddingDate - now;
 
-const minutes=document.getElementById("minutes");
+    if (distance <= 0) {
 
-const seconds=document.getElementById("seconds");
+        days.innerHTML = "0";
+        hours.innerHTML = "0";
+        minutes.innerHTML = "0";
+        seconds.innerHTML = "0";
 
+        return;
 
+    }
 
+    days.innerHTML = Math.floor(
+        distance / (1000 * 60 * 60 * 24)
+    );
 
-function updateCountdown(){
+    hours.innerHTML = Math.floor(
+        (distance % (1000 * 60 * 60 * 24))
+        /
+        (1000 * 60 * 60)
+    );
 
+    minutes.innerHTML = Math.floor(
+        (distance % (1000 * 60 * 60))
+        /
+        (1000 * 60)
+    );
 
-const now=new Date().getTime();
-
-
-const distance=weddingDate-now;
-
-
-
-if(distance<=0){
-
-
-days.innerHTML="0";
-
-hours.innerHTML="0";
-
-minutes.innerHTML="0";
-
-seconds.innerHTML="0";
-
-
-return;
-
-
-}
-
-
-
-days.innerHTML=Math.floor(
-
-distance/(1000*60*60*24)
-
-);
-
-
-
-hours.innerHTML=Math.floor(
-
-(distance%(1000*60*60*24))
-/
-(1000*60*60)
-
-);
-
-
-
-minutes.innerHTML=Math.floor(
-
-(distance%(1000*60*60))
-/
-(1000*60)
-
-);
-
-
-
-seconds.innerHTML=Math.floor(
-
-(distance%(1000*60))
-/
-1000
-
-);
-
-
+    seconds.innerHTML = Math.floor(
+        (distance % (1000 * 60))
+        /
+        1000
+    );
 
 }
-
-
 
 updateCountdown();
 
-
-setInterval(updateCountdown,1000);
-
-
-
-
+setInterval(updateCountdown, 1000);
 //====================================
 // رسائل الأحباب Firebase
 //====================================
 
+const guestName = document.getElementById("guestName");
 
-const guestName=document.getElementById("guestName");
+const guestMessage = document.getElementById("guestMessage");
 
-const guestMessage=document.getElementById("guestMessage");
+const sendMessage = document.getElementById("sendMessage");
 
-const sendMessage=document.getElementById("sendMessage");
-
-const messages=document.getElementById("messages");
-
+const messages = document.getElementById("messages");
 
 
-
+//====================================
 // إرسال الرسالة
+//====================================
 
+sendMessage.addEventListener("click", async () => {
 
-sendMessage.addEventListener("click",async()=>{
+    const name = guestName.value.trim();
 
+    const message = guestMessage.value.trim();
 
-const name=guestName.value.trim();
+    if (name === "" || message === "") {
 
+        alert("يرجى كتابة الاسم والرسالة");
 
-const message=guestMessage.value.trim();
+        return;
 
+    }
 
+    await addDoc(
 
-if(name==="" || message===""){
+        collection(db, "messages"),
 
+        {
 
-alert("يرجى كتابة الاسم والرسالة");
+            name: name,
 
+            message: message,
 
-return;
+            time: Date.now(),
 
+            likes: 0
 
-}
+        }
 
+    );
 
+    guestName.value = "";
 
-await addDoc(
-
-collection(db,"messages"),
-
-{
-
-
-name:name,
-
-message:message,
-
-time:Date.now()
-
-
-}
-
-
-);
-
-
-
-guestName.value="";
-
-guestMessage.value="";
-
-
+    guestMessage.value = "";
 
 });
-
-
-
-
+//====================================
 // عرض الرسائل لكل الزوار
+//====================================
 
+const messagesQuery = query(
 
-const messagesQuery=query(
+    collection(db, "messages"),
 
-collection(db,"messages"),
-
-orderBy("time","desc")
+    orderBy("time", "desc")
 
 );
 
+onSnapshot(messagesQuery, (snapshot) => {
 
+    messages.innerHTML = "";
 
-onSnapshot(messagesQuery,(snapshot)=>{
+    snapshot.forEach((messageDoc) => {
 
+        const data = messageDoc.data();
 
-messages.innerHTML="";
+        const liked =
+            localStorage.getItem("like_" + messageDoc.id);
 
+        const box = document.createElement("div");
 
+        box.className = "message-box";
 
-snapshot.forEach((doc)=>{
+        box.innerHTML = `
 
+            <strong>${data.name}</strong>
 
-const data=doc.data();
+            <p>${data.message}</p>
 
+            <div class="like-btn ${liked ? "liked" : ""}">
 
+                <span class="heart">
+                    ${liked ? "❤️" : "🤍"}
+                </span>
 
-const box=document.createElement("div");
+                <span class="likes-count">
+                    ${data.likes || 0}
+                </span>
 
+            </div>
 
-box.className="message-box";
+        `;
 
+        const likeBtn = box.querySelector(".like-btn");
 
+        likeBtn.addEventListener("click", async () => {
 
-box.innerHTML=`
+            if (localStorage.getItem("like_" + messageDoc.id)) {
 
-<strong>${data.name}</strong>
+                await updateDoc(
 
-<p>${data.message}</p>
+                    doc(db, "messages", messageDoc.id),
 
-`;
+                    {
 
+                        likes: increment(-1)
 
+                    }
 
-messages.appendChild(box);
+                );
 
-messages.scrollTop = 0;
+                localStorage.removeItem(
+                    "like_" + messageDoc.id
+                );
+
+            } else {
+
+                await updateDoc(
+
+                    doc(db, "messages", messageDoc.id),
+
+                    {
+
+                        likes: increment(1)
+
+                    }
+
+                );
+
+                localStorage.setItem(
+                    "like_" + messageDoc.id,
+                    "1"
+                );
+
+            }
+
+        });
+
+        messages.appendChild(box);
+
+    });
+
+    messages.scrollTop = 0;
 
 });
-
-
-});
-
-
-
-
-//====================================
-// فتح الصفحة من أعلى
-//====================================
-
-
-window.onload=()=>{
-
-
-window.scrollTo(0,0);
-
-
-};
-
-
-

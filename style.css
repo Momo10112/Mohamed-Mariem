@@ -1200,8 +1200,60 @@ textarea{
     color:#5d4630;
     word-break:break-word;
 }
-            #messages{
+#messages{
     height:300px;
     overflow-y:auto;
     border:2px solid red;
+}
+/*==================================
+            Likes
+==================================*/
+
+.like-btn{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:12px;
+    cursor:pointer;
+    user-select:none;
+    color:#b88a2c;
+    font-size:18px;
+    transition:.25s;
+}
+
+.like-btn:hover{
+    transform:scale(1.08);
+}
+
+.like-btn .heart{
+    font-size:24px;
+    transition:.25s;
+}
+
+.like-btn.liked .heart{
+    animation:heartPop .3s ease;
+}
+
+.likes-count{
+    font-weight:bold;
+    color:#8b5e34;
+    min-width:18px;
+    text-align:center;
+}
+
+@keyframes heartPop{
+
+    0%{
+        transform:scale(.7);
+    }
+
+    50%{
+        transform:scale(1.35);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
 }
