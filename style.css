@@ -1148,3 +1148,26 @@ textarea{
     line-height:1.8;
     color:#5d4630;
 }
+/* حاوية رسائل الزوار */
+#messagesContainer{
+    width:100%;
+    max-height:350px;   /* ارتفاع الكارت */
+    overflow-y:auto;    /* اسكرول رأسي */
+    overflow-x:hidden;
+    margin-top:20px;
+    padding-right:5px;
+}
+
+/* شكل الاسكرول */
+#messagesContainer::-webkit-scrollbar{
+    width:6px;
+}
+
+#messagesContainer::-webkit-scrollbar-thumb{
+    background:#b88a2c;
+    border-radius:10px;
+}
+
+#messagesContainer::-webkit-scrollbar-track{
+    background:rgba(255,255,255,.3);
+}
